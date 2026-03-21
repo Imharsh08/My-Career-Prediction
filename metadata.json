@@ -1,0 +1,5 @@
+{
+  "name": "Numerology Career Predictor",
+  "description": "Predict suitable career opportunities based on numerology analysis using your name and date of birth. Integrates with Google Sheets for data storage.",
+  "requestFramePermissions": []
+}
