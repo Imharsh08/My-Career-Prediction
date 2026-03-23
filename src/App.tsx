@@ -5,6 +5,7 @@ import { AdminPanel } from './components/AdminPanel';
 import { GoogleSheetInstructions } from './components/GoogleSheetInstructions';
 import { calculateLifePathNumber, calculateDestinyNumber, careerMapping, personalityTraits } from './utils/numerology';
 import { Sparkles, Database, Settings } from 'lucide-react';
+import RepositoryShowcase from './components/RepositoryShowcase';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<'predict' | 'admin' | 'setup'>('predict');
@@ -158,3 +159,28 @@ export default function App() {
     </div>
   );
 }
+
+function App() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4">
+      <RepositoryShowcase
+        repoName="My-Career-Prediction"
+        repoUrl="https://github.com/Imharsh08/My-Career-Prediction"
+        description="Numerology Career Predictor application built with React + Vite"
+        owner="Imharsh08"
+        languages={[
+          { name: 'TypeScript', percent: 98.9, color: '#3178c6' },
+          { name: 'Other', percent: 1.1, color: '#858585' },
+        ]}
+        lastUpdated="2026-03-23T05:34:47Z"
+        stats={{
+          stars: 0,
+          forks: 0,
+          openIssues: 0,
+        }}
+      />
+    </div>
+  );
+}
+
+export default App;
