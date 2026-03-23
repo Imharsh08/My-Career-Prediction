@@ -8,7 +8,7 @@ import { Sparkles, Database, Settings } from 'lucide-react';
 import RepositoryShowcase from './components/RepositoryShowcase';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'predict' | 'admin' | 'setup'>('predict');
+  const [activeTab, setActiveTab] = useState<'predict' | 'admin' | 'setup' | 'showcase'>('predict');
   const [prediction, setPrediction] = useState<PredictionData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -72,14 +72,13 @@ export default function App() {
         body: JSON.stringify({
           action: 'create',
           name: prediction.name,
-          dob: new Date().toISOString().split('T')[0], // Using current date or could pass actual DOB
+          dob: new Date().toISOString().split('T')[0],
           lifePath: prediction.lifePath,
           destiny: prediction.destiny,
           careers: prediction.careers.join(', ')
         }),
       });
       
-      // With no-cors, we can't read the response, so we assume success if no error thrown
       alert('Prediction saved to Google Sheets successfully!');
     } catch (error) {
       console.error('Error saving to Google Sheets:', error);
@@ -116,6 +115,12 @@ export default function App() {
                 className={`px-3 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${activeTab === 'setup' ? 'bg-indigo-50 text-indigo-700' : 'text-gray-600 hover:bg-gray-100'}`}
               >
                 <Settings className="w-4 h-4" /> Setup
+              </button>
+              <button
+                onClick={() => setActiveTab('showcase')}
+                className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${activeTab === 'showcase' ? 'bg-indigo-50 text-indigo-700' : 'text-gray-600 hover:bg-gray-100'}`}
+              >
+                Showcase
               </button>
             </nav>
           </div>
@@ -155,32 +160,28 @@ export default function App() {
         {activeTab === 'setup' && (
           <GoogleSheetInstructions />
         )}
+
+        {activeTab === 'showcase' && (
+          <div className="flex justify-center">
+            <RepositoryShowcase
+              repoName="My-Career-Prediction"
+              repoUrl="https://github.com/Imharsh08/My-Career-Prediction"
+              description="Numerology Career Predictor application built with React + Vite"
+              owner="Imharsh08"
+              languages={[
+                { name: 'TypeScript', percent: 98.9, color: '#3178c6' },
+                { name: 'Other', percent: 1.1, color: '#858585' },
+              ]}
+              lastUpdated="2026-03-23T05:34:47Z"
+              stats={{
+                stars: 0,
+                forks: 0,
+                openIssues: 0,
+              }}
+            />
+          </div>
+        )}
       </main>
     </div>
   );
 }
-
-function App() {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4">
-      <RepositoryShowcase
-        repoName="My-Career-Prediction"
-        repoUrl="https://github.com/Imharsh08/My-Career-Prediction"
-        description="Numerology Career Predictor application built with React + Vite"
-        owner="Imharsh08"
-        languages={[
-          { name: 'TypeScript', percent: 98.9, color: '#3178c6' },
-          { name: 'Other', percent: 1.1, color: '#858585' },
-        ]}
-        lastUpdated="2026-03-23T05:34:47Z"
-        stats={{
-          stars: 0,
-          forks: 0,
-          openIssues: 0,
-        }}
-      />
-    </div>
-  );
-}
-
-export default App;
